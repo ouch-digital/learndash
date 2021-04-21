@@ -1,0 +1,35 @@
+<?php
+// Creating custom snippet for Learndash - Hide mark complete of last lesson dynamic courses
+function ld_hide_last_lesson_button () {	
+
+global $post;
+	// Stop if not a lesson
+	if ( ! is_singular( 'sfwd-lessons' ) ) 
+	return;
+	
+	// Get course and lesson id
+	$id = $post->ID ;
+	$ld_course_id = learndash_get_course_id($id);
+	
+	// Get course category list
+	$course_cat_list = get_the_terms( $ld_course_id, 'ld_course_category' );
+	$dynamic_cat = array_column($course_cat_list, 'term_id');
+	
+	// Stop if dynamic category not in course
+	if (! in_array(505, $dynamic_cat)) // Update value with category id of your course
+	return;
+
+	// Find current last lesson of course
+	$ld_lessons_id = learndash_course_get_lessons( $ld_course_id );
+	$last_lesson_ids = array_column($ld_lessons_id, 'ID');
+	$last_lesson = end($last_lesson_ids);
+
+	if ( is_single($last_lesson)) {
+	echo '<style>
+		.learndash_mark_complete_button {
+		display: none !important;
+		}
+        </style>';
+	}
+}
+add_action( 'wp_enqueue_scripts', 'ld_hide_last_lesson_button' );
