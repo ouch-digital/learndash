@@ -1,4 +1,12 @@
 <?php
+/*
+* You may wish to create courses dynamically throughout the year without students "completing" the courses prematurely. 
+* I have put together a snippet to hide the mark complete button on the last lesson of a "dynamic" course.
+* 1. Create a course category called "dynamic course"
+* 2. Give course the category "dynamic course"
+* 3. update value in // Stop if dynamic category not in course to match the id of your category
+* Edits and contributions welcome
+*/
 // Creating custom snippet for Learndash - Hide mark complete of last lesson dynamic courses
 function ld_hide_last_lesson_button () {	
 
@@ -15,8 +23,8 @@ global $post;
 	$course_cat_list = get_the_terms( $ld_course_id, 'ld_course_category' );
 	$dynamic_cat = array_column($course_cat_list, 'term_id');
 	
-	// Stop if dynamic category not in course
-	if (! in_array(505, $dynamic_cat)) // Update value with category id of your course
+	// Stop if dynamic category id not in course
+	if (! in_array(505, $dynamic_cat)) // Update value with category id of your course category
 	return;
 
 	// Find current last lesson of course
