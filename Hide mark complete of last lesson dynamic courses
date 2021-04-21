@@ -2,6 +2,7 @@
 /*
 * You may wish to create courses dynamically throughout the year without students "completing" the courses prematurely. 
 * I have put together a snippet to hide the mark complete button on the last lesson of a "dynamic" course.
+* Note, this snippet will only work for linear course progression courses
 * 1. Create a course category called "dynamic course"
 * 2. Give course the category "dynamic course"
 * 3. update value in // Stop if dynamic category not in course to match the id of your category
